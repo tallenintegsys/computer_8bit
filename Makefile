@@ -4,10 +4,10 @@ all: syn
 
 .PHONY: syn sim pgm clean
 syn :
-	iverilog -o output_files/computer_8bit computer_8bit.sv single_port_rom.sv chip_6502.v MUX.v
+	iverilog -g2012 -o output_files/computer_8bit computer_8bit.sv single_port_rom.sv chip_6502.v MUX.v
 
 sim :
-	iverilog computer_8bit_tb.sv computer_8bit.sv single_port_rom.sv chip_6502_tb.v chip_6502.v MUX.v
+	iverilog -g2012 computer_8bit_tb.sv computer_8bit.sv single_port_rom.sv chip_6502.v MUX.v
 	./a.out
 
 pgm :
