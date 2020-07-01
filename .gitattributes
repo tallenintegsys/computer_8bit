@@ -1,2 +1,2 @@
-
-*.v linguist-language=Verilog
+# it's verilog dammit
+*.* linguist-language=Verilog
