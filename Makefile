@@ -4,7 +4,7 @@ all: syn
 
 .PHONY: syn sim pgm clean
 syn :
-	iverilog -o output_files/chip_6502 chip_6502.v MUX.v
+	iverilog -o output_files/computer_8bit computer_8bit.sv single_port_rom.sv chip_6502.v MUX.v
 
 sim :
 	iverilog chip_6502_tb.v chip_6502.v MUX.v
