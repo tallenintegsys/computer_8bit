@@ -6,3 +6,4 @@ output_files/
 simulation/
 db/
 *.vcd
+rom.bin
