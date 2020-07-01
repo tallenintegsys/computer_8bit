@@ -22,7 +22,7 @@ module single_port_rom
 
 	initial
 	begin
-		$readmemh("coby.hex", rom);
+		$readmemh("rom.hex", rom);
 	end
 
 	always @ (posedge clk)

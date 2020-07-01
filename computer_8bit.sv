@@ -81,8 +81,6 @@ assign	LCD_DATA = lcd_data;
 assign	LCD_BLON = 1'b1;
 
 initial begin
-	$dumpfile("chip_6502.vcd");
-	$dumpvars(0, cpu);
 	#0
 	clk = 0;
 	phi = 0;
