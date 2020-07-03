@@ -28,7 +28,8 @@ wire	[7:0]dbo;
 wire	rw;
 wire	sync;
 wire	[15:0]ab;
-int	counter;
+
+clock_divider c_div(CLOCK_50, phi);
 
 single_port_rom rom(ab, phi, rw, dbi);
 
@@ -56,24 +57,13 @@ assign	res = !KEY[0];
 
 initial begin
 	#0
-	phi = 1;
 	so = 1;
 	rdy = 1;
 	nmi = 1;
 	irq = 1;
-
-	counter = 0;
 end
 
 // Module Item(s)
-always@(posedge CLOCK_50)
-begin
-	counter++;
-	if (counter == 100) begin
-		counter = 0;
-		phi = ~phi;
-	end
-end
 
 endmodule
 
