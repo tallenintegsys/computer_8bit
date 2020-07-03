@@ -9,17 +9,30 @@ module single_port_rom
 	output reg [(DATA_WIDTH-1):0] q
 );
 
+	// Declare the ROM variable
+	reg [DATA_WIDTH-1:0] rom[2**ADDR_WIDTH-1:0];
+	int File, dk;
+
+	// Initialize the ROM with $readmemb.  Put the memory contents
+	// in the file single_port_rom_init.txt.  Without this file,
+	// this design will not compile.
+
+	// See Verilog LRM 1364-2001 Section 17.2.8 for details on the
+	// format of this file, or see the "Using $readmemb and $readmemh"
+	// template later in this section.
+
 	initial
 	begin
-		q <= 8'hzz;
+		$readmemh("rom.txt", rom, 16'hffff - 20479, 16'hffff);
 	end
 
 	always @ (posedge clk)
 	begin
-		case (addr)
-			`include "rom_bin.v"
-		default: q <= 8'hea;
-		endcase
+		if (!ce) begin
+			q <= 8'hzz;
+		end else begin
+			q <= rom[addr];
+		end
 	end
 
 endmodule
