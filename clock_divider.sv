@@ -1,10 +1,9 @@
 module clock_divider
 (
 	input CLOCK_50,
-	output phi
+	output logic phi
 );
 
-logic phi;
 int counter;
 
 initial
