@@ -1,6 +1,8 @@
 PGM=$(HOME)/altera/13.1/quartus/bin/quartus_pgm
 modules=clock_divider.sv \
 		single_port_rom.sv \
+		single_port_ram.sv \
+		address_decode.sv \
 		chip_6502.v \
 		MUX.v
 

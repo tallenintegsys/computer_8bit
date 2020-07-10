@@ -17,23 +17,27 @@ parameter <param_name> = <default_value>,
 	output	[8:0]LEDG
 );
 
-reg	phi;
-reg	res;
-reg	so;
-reg	rdy;
-reg	nmi;
-reg	irq;
-reg	[7:0]dbi;
-wire	[7:0]dbo;
-wire	rw;
-wire	sync;
-wire	[15:0]ab;
+reg phi;
+reg res;
+reg so;
+reg rdy;
+reg nmi;
+reg irq;
+reg [7:0]dbi;
+wire [7:0]dbo;
+wire rw;
+wire sync;
+wire [15:0]ab;
+wire [7:0]ram_dbi;
+wire [7:0]rom_dbi;
 
 clock_divider c_div(CLOCK_50, phi);
 
-single_port_rom rom(ab, phi, rw, dbi);
+address_decode ad(ab, dbi, ram_dbi, rom_dbi, ram_ce, rom_ce);
 
-single_port_ram ram(dbo, ab, phi, rw, dbi);
+single_port_rom rom(ab, phi, rom_ce, rom_dbi);
+
+single_port_ram ram(dbo, ab, phi, rw, ram_dbi);
 
 chip_6502 cpu (
 	CLOCK_50,    // FPGA clock
