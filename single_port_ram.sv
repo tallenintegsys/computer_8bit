@@ -19,7 +19,7 @@ module single_port_ram
 	always @ (posedge clk)
 	begin
 		// Write
-		if (we)
+		if (!we)
 			ram[addr] <= data;
 
 		addr_reg <= addr;
