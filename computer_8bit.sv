@@ -33,6 +33,8 @@ clock_divider c_div(CLOCK_50, phi);
 
 single_port_rom rom(ab, phi, rw, dbi);
 
+single_port_ram ram(dbo, ab, phi, rw, dbi);
+
 chip_6502 cpu (
 	CLOCK_50,    // FPGA clock
 	phi,    // 6502 clock
