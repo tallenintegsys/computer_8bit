@@ -24,13 +24,13 @@ initial begin
 	KEY[1] = 0;
 	KEY[2] = 0;
 	KEY[3] = 0;
-	#100
+	#10
 	KEY[0] = 1;
-	#100
+	#10
 	KEY[0] = 0;
 	//#100000 
 	//$dumpon;
-	#1500000
+	#50000
 	$finish;
 end
 
