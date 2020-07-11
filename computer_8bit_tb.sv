@@ -17,7 +17,7 @@ module computer_8bit_tb;
 initial begin
 	$dumpfile("computer_8bit.vcd");
 	$dumpvars(0, uut);
-	$dumpoff;
+	//$dumpoff;
 	#0
 	CLOCK_50 = 0;
 	KEY[0] = 0;
@@ -29,8 +29,8 @@ initial begin
 	#100
 	KEY[0] = 0;
 	//#100000 
-	$dumpon;
-	#90000
+	//$dumpon;
+	#1500000
 	$finish;
 end
 
