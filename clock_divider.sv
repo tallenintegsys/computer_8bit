@@ -14,11 +14,15 @@ end
 
 always@(posedge CLOCK_50)
 begin
-    counter++;
-    if (counter == 100) begin
-        counter = 0;
-        phi = ~phi;
-    end
+	counter++;
+`ifdef __ICARUS__
+	if (counter == 10) begin
+`else
+	if (counter == 50) begin
+`endif
+		counter = 0;
+		phi = ~phi;
+	end
 end
 endmodule
 

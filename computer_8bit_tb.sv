@@ -1,7 +1,7 @@
 module computer_8bit_tb;
 
 	// Input Ports
-	reg	CLOCK_50;
+	reg		CLOCK_50;
 	reg 	[3:0]KEY;
 
 	// Output Ports
@@ -17,17 +17,21 @@ module computer_8bit_tb;
 initial begin
 	$dumpfile("computer_8bit.vcd");
 	$dumpvars(0, uut);
+	$dumpoff;
 	#0
 	CLOCK_50 = 0;
 	KEY[0] = 0;
 	KEY[1] = 0;
 	KEY[2] = 0;
 	KEY[3] = 0;
-	#1000
+	#100
 	KEY[0] = 1;
-	#1000
+	#100
 	KEY[0] = 0;
-	#50000 $finish;
+	//#100000 
+	$dumpon;
+	#90000
+	$finish;
 end
 
 always begin
