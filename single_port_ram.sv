@@ -11,7 +11,7 @@ module single_port_ram
 );
 
 	// Declare the RAM variable
-	reg [DATA_WIDTH-1:0] ram[2**ADDR_WIDTH-1:0];
+	bit [DATA_WIDTH-1:0] ram[2**ADDR_WIDTH-1:0];
 
 	// Variable to hold the registered read address
 	reg [ADDR_WIDTH-1:0] addr_reg;
@@ -21,7 +21,7 @@ module single_port_ram
 		// Write
 		if (!we)
 			ram[addr] <= data;
-
+		// Read
 		addr_reg <= addr;
 	end
 
