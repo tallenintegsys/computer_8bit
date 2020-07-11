@@ -16,7 +16,7 @@ always@(posedge CLOCK_50)
 begin
 	counter++;
 `ifdef __ICARUS__
-	if (counter == 10) begin
+	if (counter == 8) begin
 `else
 	if (counter == 50) begin
 `endif
