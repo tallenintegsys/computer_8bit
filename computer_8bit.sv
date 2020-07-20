@@ -1,12 +1,4 @@
 module computer_8bit
-/*#(
-// Parameter Declarations
-parameter <param_name> = <default_value>,
-	parameter [<msb>:<lsb>] <param_name> = <default_value>,
-	parameter signed [<msb>:<lsb>] <param_name> = <default_value>
-	...
-)*/
-
 (
 	// Input Ports
 	input	CLOCK_50,
@@ -18,6 +10,8 @@ parameter <param_name> = <default_value>,
 );
 
 reg cpu_phi;
+reg mem_phi;
+reg vid_phi;
 reg res;
 reg so;
 reg rdy;
@@ -28,16 +22,16 @@ wire [7:0]cpu_dbo;
 wire rw;
 wire sync;
 wire [15:0]cpu_adr;
-wire [7:0]ram_dbi;
-wire [7:0]rom_dbi;
+wire [7:0]ram_dbo;
+wire [7:0]rom_dbo;
 
-clock_divider c_div(CLOCK_50, cpu_phi);
+clock_divider c_div(CLOCK_50, cpu_phi, mem_phi, vid_phi);
 
-address_decode ad(cpu_adr, cpu_dbi, ram_dbi, rom_dbi, ram_ce, rom_ce);
+address_decode ad(cpu_adr, cpu_dbi, ram_dbo, rom_dbo, ram_ce, rom_ce);
 
-single_port_rom rom(cpu_adr, phi, rom_ce, rom_dbi);
+single_port_rom rom(cpu_adr, mem_phi, rom_ce, rom_dbo);
 
-single_port_ram ram(cpu_dbo, cpu_adr, phi, rw, ram_dbi);
+single_port_ram ram(cpu_dbo, cpu_adr, mem_phi, rw, ram_dbo);
 
 chip_6502 cpu (
 	CLOCK_50,    // FPGA clock
