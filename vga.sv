@@ -3,7 +3,7 @@ module vga (
 	input CLOCK_50,
 	output VGA_B[7:0],
 	output VGA_BLANK_N, // redundant if RG&B are 0?
-	output VGA_CLK, // why?
+	output VGA_CLK, // latch the RGBs and put 'em on the DACs
 	output VGA_G[7:0],
 	output VGA_HS,
 	output VGA_R[7:0],
