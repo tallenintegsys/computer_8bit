@@ -1,6 +1,5 @@
 module video_tb;
 
-
 reg [15:0]vid_adr;
 reg phi;
 reg [7:0]vid_dbi;
@@ -13,7 +12,7 @@ initial begin
 	#0
 	phi <= 0;
 	//$dumpon;
-	#50000
+	#1300
 	$finish;
 
 end

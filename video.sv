@@ -1,5 +1,4 @@
-/*
-      TOP/         MIDDLE/      BOTTOM/      (SCREEN HOLES)
+/*TOP/         MIDDLE/      BOTTOM/      (SCREEN HOLES)
 BASE  FIRST 40     SECOND 40    THIRD 40     UNUSED 8
 ADDR  #  RANGE     #  RANGE     #  RANGE     RANGE
 $400  00 $400-427  08 $428-44F  16 $450-477  $478-47F
@@ -9,14 +8,11 @@ $580  03 $580-5A7  11 $5A8-5CF  19 $5D0-5F7  $5F8-5FF
 $600  04 $600-627  12 $628-64F  20 $650-677  $678-67F
 $680  05 $680-6A7  13 $6A8-6CF  21 $6D0-6F7  $6F8-6FF
 $700  06 $700-727  14 $728-74F  22 $750-777  $778-77F
-$780  07 $780-7A7  15 $7A8-7CF  23 $7D0-7F7  $7F8-7FF
-*/
-module video
-(
+$780  07 $780-7A7  15 $7A8-7CF  23 $7D0-7F7  $7F8-7FF */
+module video (
 output [15:0]adr,
 input [7:0]dbi,
-input phi
-);
+input phi);
 
 reg [6:0]h;
 reg [5:0]v;
@@ -37,6 +33,6 @@ always @(posedge phi) begin
 	if (v == 6'd24) begin
 		v <= 0;
 	end
-	adr <= 16'h400 + {6'd0,v[2:0], 1'd0, v[4:4], v[3:3], v[4:4], v[3:3], 3'd0} + h;
+	adr <= 16'h400 + h + v[2:0] * 8'h80 + v[4:3] * 8'h28; // theres a better way
 end
 endmodule
