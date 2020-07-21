@@ -8,9 +8,13 @@ modules=clock_divider.sv \
 
 all: syn
 
-.PHONY: syn sim pgm clean
+.PHONY: syn video sim pgm clean
 syn :
 	iverilog -g2012 -o output_files/computer_8bit computer_8bit.sv $(modules)
+
+video:
+	iverilog -g2012 video_tb.sv video.sv
+	./a.out
 
 sim :
 	iverilog -g2012 computer_8bit_tb.sv computer_8bit.sv $(modules)
