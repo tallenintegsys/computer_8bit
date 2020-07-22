@@ -14,6 +14,7 @@ logic [5:0] counter_10;
 logic clock_10;
 logic [8:0] h_counter;
 logic [9:0] v_counter;
+logic [23:0] framebuffer [200*600-1:0]; //200 x 600
 
 always @ (posedge CLOCK_50)
 begin
@@ -64,5 +65,8 @@ begin
 		v_counter = 0;
 		VGA_BLANK_N = 1; //re-enable RG&B ?
 	end
+	VGA_R = framebuffer[23:16][h_counter+v_counter*200];
+	VGA_G = framebuffer[15:8][h_counter+v_counter*200];
+	VGA_B = framebuffer[7:0][h_counter+v_counter*200];
 end
 endmodule

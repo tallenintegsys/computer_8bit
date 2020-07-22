@@ -3,7 +3,7 @@ module video_tb;
 reg [15:0]vid_adr;
 reg phi;
 reg [7:0]vid_dbi;
-reg [7:0]txt[15:0];
+reg [7:0]txt[16'hffff:0];
 
 initial begin
 	$dumpfile("video.vcd");
@@ -12,7 +12,8 @@ initial begin
 	#0
 	phi <= 0;
 	//$dumpon;
-	#1300
+	#10000
+	$writememh("txtBuf.txt", txt, 16'h400, 16'h7ff);
 	$finish;
 
 end

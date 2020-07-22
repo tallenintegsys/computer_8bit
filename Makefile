@@ -10,7 +10,7 @@ all: syn
 
 .PHONY: syn video sim pgm clean
 syn :
-	iverilog -g2012 -o output_files/computer_8bit computer_8bit.sv $(modules)
+	iverilog -Wall -g2012 -o output_files/computer_8bit computer_8bit.sv $(modules)
 
 video:
 	iverilog -g2012 video_tb.sv video.sv
