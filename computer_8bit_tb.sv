@@ -30,7 +30,7 @@ initial begin
 	KEY[0] = 0;
 	//#100000 
 	//$dumpon;
-	#50000
+	#5000
 	$finish;
 end
 

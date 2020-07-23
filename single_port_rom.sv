@@ -26,14 +26,12 @@ module single_port_rom
 		$readmemh("rom.txt", rom, 16'hffff - 20479, 16'hffff);
 	end
 
-	always @ (posedge clk)
-	begin
+	always @ (posedge clk) begin
 		if (!ce) begin
 			q <= 8'hzz;
 		end else begin
 			q <= rom[addr];
 		end
 	end
-
 endmodule
 

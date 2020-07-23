@@ -9,9 +9,9 @@ module computer_8bit
 	output	[8:0]LEDG
 );
 
-reg cpu_phi;
-reg mem_phi;
-reg vid_phi;
+wire cpu_phi;
+wire mem_phi;
+wire vid_phi;
 reg res;
 reg so;
 reg rdy;
@@ -22,16 +22,20 @@ wire [7:0]cpu_dbo;
 wire rw;
 wire sync;
 wire [15:0]cpu_adr;
+wire [15:0]mem_adr;
+wire [15:0]vid_adr;
 wire [7:0]ram_dbo;
 wire [7:0]rom_dbo;
 
 clock_divider c_div(CLOCK_50, cpu_phi, mem_phi, vid_phi);
 
-address_decode ad(cpu_adr, cpu_dbi, ram_dbo, rom_dbo, ram_ce, rom_ce);
+address_decode ad(cpu_adr, mem_adr, vid_adr, cpu_dbi, ram_dbo, rom_dbo, cpu_phi, vid_phi, mem_phi);
 
-single_port_rom rom(cpu_adr, mem_phi, rom_ce, rom_dbo);
+single_port_rom rom(mem_adr, mem_phi, 1'd1, rom_dbo);
 
-single_port_ram ram(cpu_dbo, cpu_adr, mem_phi, rw, ram_dbo);
+single_port_ram ram(cpu_dbo, mem_adr, mem_phi, rw, ram_dbo);
+
+video vid(vid_adr, cpu_dbi, vid_phi);
 
 chip_6502 cpu (
 	CLOCK_50,    // FPGA clock

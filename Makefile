@@ -1,23 +1,25 @@
 PGM=$(HOME)/altera/13.1/quartus/bin/quartus_pgm
 modules=clock_divider.sv \
+		video.sv \
 		single_port_rom.sv \
 		single_port_ram.sv \
 		address_decode.sv \
 		chip_6502.v \
 		MUX.v
+VFLAGS= -Wall -g2012
 
 all: syn
 
 .PHONY: syn video sim pgm clean
 syn :
-	iverilog -Wall -g2012 -o output_files/computer_8bit computer_8bit.sv $(modules)
+	iverilog $(VFLAGS) -o output_files/computer_8bit computer_8bit.sv $(modules)
 
 video:
-	iverilog -g2012 video_tb.sv video.sv
+	iverilog $(VFLAGS) video_tb.sv video.sv
 	./a.out
 
 sim :
-	iverilog -g2012 computer_8bit_tb.sv computer_8bit.sv $(modules)
+	iverilog $(VFLAGS)  computer_8bit_tb.sv computer_8bit.sv $(modules)
 	./a.out
 
 pgm :

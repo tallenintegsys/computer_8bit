@@ -10,25 +10,27 @@ $680  05 $680-6A7  13 $6A8-6CF  21 $6D0-6F7  $6F8-6FF
 $700  06 $700-727  14 $728-74F  22 $750-777  $778-77F
 $780  07 $780-7A7  15 $7A8-7CF  23 $7D0-7F7  $7F8-7FF */
 module video (
-output [15:0]adr,
+output [15:0]vid_adr,
 input [7:0]dbi,
 input phi);
 
+logic [15:0]adr;
 reg [6:0]h;
 reg [5:0]v;
 reg [7:0]buffer[40*24-1:0];
-reg [15:0]adr;
+
+assign vid_adr = adr;
 
 initial begin
 	h <= 0;
 	v <= 0;
 end
 
-always @(posedge phi) begin
-	h <= h + 1;
+always @ (posedge phi) begin
+	h <= h + 7'd1;
 	if (h == 7'd39) begin
 		h <= 0;
-		v <= v + 1;
+		v <= v + 6'd1;
 	end
 	if (v == 6'd24) begin
 		v <= 0;
