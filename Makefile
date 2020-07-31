@@ -16,18 +16,13 @@ VFLAGS= -Wall -g2012
 
 all: sim
 
-.PHONY: syn video sim pgm clean
+.PHONY: syn sim pgm clean distclean
 syn:
 	$(MAP) --read_settings_files=on --write_settings_files=off computer_8bit -c computer_8bit
 	$(FIT) --read_settings_files=off --write_settings_files=off computer_8bit -c computer_8bit
 	$(ASM) --read_settings_files=off --write_settings_files=off computer_8bit -c computer_8bit
 #	$(STA) computer_8bit -c computer_8bit
 	$(EDA) --read_settings_files=off --write_settings_files=off computer_8bit -c computer_8bit
-
-
-video:
-	iverilog $(VFLAGS) video_tb.sv video.sv
-	./a.out
 
 sim:
 	iverilog $(VFLAGS)  computer_8bit_tb.sv computer_8bit.sv $(modules)
@@ -38,3 +33,6 @@ pgm:
 
 clean:
 	rm *.vcd a.out
+
+distclean:
+	rm -rf *.vcd a.out db incremental_db output_files simulation
