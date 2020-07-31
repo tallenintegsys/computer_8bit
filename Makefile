@@ -1,6 +1,5 @@
 PGM=$(HOME)/altera/13.1/quartus/bin/quartus_pgm
 modules=clock_divider.sv \
-		video.sv \
 		single_port_rom.sv \
 		single_port_ram.sv \
 		address_decode.sv \
@@ -8,7 +7,7 @@ modules=clock_divider.sv \
 		MUX.v
 VFLAGS= -Wall -g2012
 
-all: syn
+all: sim
 
 .PHONY: syn video sim pgm clean
 syn :

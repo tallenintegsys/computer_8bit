@@ -5,8 +5,8 @@ module computer_8bit
 	input	[3:0]KEY,
 
 	// Output Ports
-	output	[17:0]LEDR,
-	output	[8:0]LEDG
+	output	logic [17:0]LEDR,
+	output	reg [8:0]LEDG
 );
 
 wire cpu_phi;
@@ -26,6 +26,7 @@ wire [15:0]mem_adr;
 wire [15:0]vid_adr;
 wire [7:0]ram_dbo;
 wire [7:0]rom_dbo;
+reg [20:0] count;
 
 clock_divider c_div(CLOCK_50, cpu_phi, mem_phi, vid_phi);
 
@@ -35,39 +36,47 @@ single_port_rom rom(mem_adr, mem_phi, 1'd1, rom_dbo);
 
 single_port_ram ram(cpu_dbo, mem_adr, mem_phi, rw, ram_dbo);
 
-video vid(vid_adr, cpu_dbi, vid_phi);
+//video vid(vid_adr, cpu_dbi, vid_phi);
 
 chip_6502 cpu (
-	CLOCK_50,    // FPGA clock
-	cpu_phi,    // 6502 clock
-	res,
-	so,
-	rdy,
-	nmi,
-	irq,
-	cpu_dbi,	// cpu data bus in
-	cpu_dbo,	// cpu data bus out
-	rw,
-	sync,
-	cpu_adr);	// cpu address bus
+	.clk    (CLOCK_50),    // FPGA clock
+	.phi    (cpu_phi),    // 6502 clock
+	.res    (res),
+	.so     (so),
+	.rdy    (rdy),
+	.nmi    (nmi),
+	.irq    (irq),
+	.dbi    (cpu_dbi),	// cpu data bus in
+	.dbo    (cpu_dbo),	// cpu data bus out
+	.rw     (rw),
+	.sync   (sync),
+	.ab    (cpu_adr));	// cpu address bus
 
 // The left-hand side of a continuous assignment must be a structural
 // net expression.  That is, it must be a net or a concatentation of
 // nets, and any index expressions must be constant.
 
 assign	LEDR[15:0] = cpu_adr;
-assign	LEDG[7:0] = cpu_dbo;
-assign	res = !KEY[0];
-
-initial begin
-	#0
-	so = 1;
-	rdy = 1;
-	nmi = 1;
-	irq = 1;
-end
+assign	res = KEY[0];
 
 // Module Item(s)
+always @ (posedge CLOCK_50) begin
+    if (res) begin
+        so = 1;
+        rdy = 1;
+        nmi = 1;
+        irq = 1;
+        count = 0;
+    end
 
+    if (KEY[0] == 1) begin
+        count++;
+        if (count == 0)
+            LEDG[8] <= ~LEDG[8];
+    end else
+        LEDG[8] <= 0;
+
+	LEDG[7:0] <= cpu_dbo[7:0];
+end
 endmodule
 
