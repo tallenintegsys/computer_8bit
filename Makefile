@@ -16,7 +16,7 @@ VFLAGS= -Wall -g2012
 
 all: sim
 
-.PHONY: syn sim pgm clean distclean
+.PHONY: syn sim pgm clean distclean run
 syn:
 	$(MAP) --read_settings_files=on --write_settings_files=off computer_8bit -c computer_8bit
 	$(FIT) --read_settings_files=off --write_settings_files=off computer_8bit -c computer_8bit
@@ -30,6 +30,8 @@ sim:
 
 pgm:
 	$(PGM) -c 1 --mode=JTAG -o 'p;output_files/computer_8bit.sof'
+
+run: syn pgm
 
 clean:
 	rm *.vcd a.out
