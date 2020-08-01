@@ -28,13 +28,35 @@ wire [7:0]ram_dbo;
 wire [7:0]rom_dbo;
 reg [20:0] count;
 
-clock_divider c_div(CLOCK_50, cpu_phi, mem_phi, vid_phi);
+clock_divider clock_divider (
+    .CLOCK_50,
+    .cpu_phi,
+    .mem_phi,
+    .vid_phi);
 
-address_decode ad(cpu_adr, mem_adr, vid_adr, cpu_dbi, ram_dbo, rom_dbo, cpu_phi, vid_phi, mem_phi);
+address_decode address_decode (
+    .cpu_adr,
+    .mem_adr,
+    .vid_adr,
+    .cpu_dbi,
+    .ram_dbo,
+    .rom_dbo,
+    .cpu_phi,
+    .vid_phi,
+    .mem_phi);
 
-single_port_rom rom(mem_adr, mem_phi, 1'd1, rom_dbo);
+single_port_rom rom (
+    .addr (mem_adr),
+    .clk (mem_phi),
+    .ce (1'd1),
+    .q (rom_dbo));
 
-single_port_ram ram(cpu_dbo, mem_adr, mem_phi, rw, ram_dbo);
+single_port_ram ram (
+    .data (cpu_dbo),
+    .addr (mem_adr),
+    .clk (mem_phi),
+    .we (rw),
+    .q (ram_dbo));
 
 //video vid(vid_adr, cpu_dbi, vid_phi);
 
