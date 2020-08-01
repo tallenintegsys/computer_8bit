@@ -26,7 +26,7 @@ wire [15:0]mem_adr;
 wire [15:0]vid_adr;
 wire [7:0]ram_dbo;
 wire [7:0]rom_dbo;
-reg [20:0] count;
+reg [22:0] count;
 
 clock_divider clock_divider (
     .CLOCK_50,
@@ -79,7 +79,7 @@ chip_6502 cpu (
 // nets, and any index expressions must be constant.
 
 assign	LEDR[15:0] = cpu_adr;
-assign	res = KEY[0];
+assign	res = KEY[0]; //normaly high
 
 // Module Item(s)
 always @ (posedge CLOCK_50) begin
@@ -88,15 +88,14 @@ always @ (posedge CLOCK_50) begin
         rdy = 1;
         nmi = 1;
         irq = 1;
-        count = 0;
-    end
-
-    if (KEY[0] == 1) begin
         count++;
         if (count == 0)
-            LEDG[8] <= ~LEDG[8];
-    end else
+            LEDG[8] <= !LEDG[8];
+    end
+
+    if (KEY[1]) begin
         LEDG[8] <= 0;
+    end
 
 	LEDG[7:0] <= cpu_dbo[7:0];
 end
