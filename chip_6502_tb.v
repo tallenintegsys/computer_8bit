@@ -1,3 +1,4 @@
+`timescale 10ns/10ps
 
 module chip_6502_tb;
 

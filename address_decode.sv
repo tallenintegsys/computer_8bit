@@ -1,3 +1,4 @@
+`timescale 10ns/10ps
 module address_decode
 (	input [15:0]cpu_adr,
 	output reg [15:0]mem_adr,

@@ -1,3 +1,4 @@
+`timescale 10ns/10ps
 module clock_divider
 (
 	input CLOCK_50,

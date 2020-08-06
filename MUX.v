@@ -1,4 +1,4 @@
-
+`timescale 10ns/10ps
 module MUX #(
     parameter N=1
 ) (

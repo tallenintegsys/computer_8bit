@@ -1,3 +1,5 @@
+`timescale 10ns/10ps
+
 `include "chip_6502_nodes.inc"
 
 module LOGIC (

@@ -1,3 +1,4 @@
+`timescale 10ns/10ps
 // Quartus Prime Verilog Template
 // Single port RAM with single read/write address 
 

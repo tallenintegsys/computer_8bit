@@ -10,8 +10,8 @@ modules=clock_divider.sv \
 		single_port_rom.sv \
 		single_port_ram.sv \
 		address_decode.sv \
-		chip_6502.v \
-		MUX.v
+		chip_6502.v MUX.v \
+		vdp.sv vga.sv crom.sv vram.sv
 VFLAGS= -Wall -g2012
 
 all: sim
