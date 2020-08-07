@@ -72,6 +72,7 @@ single_port_ram ram (
 
 vdp vdp (
     .CLOCK_50   (CLOCK_50),
+    .phi        (vid_phi),
     .VGA_B      (VGA_B),
     .VGA_BLANK_N (VGA_BLANK_N),    // to D2A chip, active low
     .VGA_CLK    (VGA_CLK),        // latch the RGBs and put 'em on the DACs
@@ -80,7 +81,7 @@ vdp vdp (
     .VGA_R      (VGA_R),
     .VGA_SYNC_N (VGA_SYNC_N),    // to D2A chip, active low
     .VGA_VS     (VGA_VS),         // DB19 pin, active low
-    .cpu_adr    (vid_adr),
+    .adr        (vid_adr),
     .txt        (ram_dbo),
     .reset      (res));
 

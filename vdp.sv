@@ -14,6 +14,7 @@ $780  07 $780-7A7  15 $7A8-7CF  23 $7D0-7F7  $7F8-7FF */
 
 module vdp (
     input           CLOCK_50,
+    input           phi,
     input           [7:0]txt,
     input           reset,
     output  logic   [7:0]VGA_B,
@@ -24,7 +25,7 @@ module vdp (
     output  logic   [7:0]VGA_R,
     output  logic   VGA_SYNC_N,     // to D2A chip, active low
     output  logic   VGA_VS,         // DB19 pin, active low
-    output  logic   [15:0]cpu_adr);  // XXX for now we reach out
+    output  logic   [15:0]adr);  // XXX for now we reach out
 
     wire    [15:0]  vram_radr;
     wire    [23:0]  vram_q;
@@ -39,8 +40,7 @@ module vdp (
     logic   [2:0]   x_txt_cnt;
     logic   [2:0]   chary;
 
-
-    assign cpu_adr = {6'd0, x_txt};// it's at $400 on Apple II + 16'h400;
+    assign adr = {6'd0, x_txt} + 16'h400;// it's at $400 on Apple II + 16'h400;
     assign vram_wadr = x_pos + y_pos*280;
 
 vram #(24,16) vram (
@@ -71,43 +71,41 @@ vga vga (
     .VGA_VS         (VGA_VS));            // DB19 pin, active low
 
 
-always @ (posedge CLOCK_50) begin
-    if (reset) begin
+always @ (posedge phi) begin
+    if (!reset) begin
         x_pos <= 0;
         y_pos <= 0;
         chary <= 0;
         x_txt_cnt <= 0;
         x_txt <= 0;
     end else begin
-
-    x_pos <= x_pos + 1;
-    if (x_pos >= 279) begin
-        x_pos <= 0;
-        x_txt <= 0 + 40 * y_pos[7:3];
-        x_txt_cnt <= 0;
-        y_pos <= y_pos + 1;
-        chary <= chary + 1;
-    end else begin
-        if (x_txt_cnt == 6) begin
+        x_pos <= x_pos + 1;
+        if (x_pos >= 279) begin
+            x_pos <= 0;
+            x_txt <= 0 + 40 * y_pos[7:3];
             x_txt_cnt <= 0;
-            x_txt <= x_txt + 1;
-        end else
-            x_txt_cnt <= x_txt_cnt + 1;
+            y_pos <= y_pos + 1;
+            chary <= chary + 1;
+        end else begin
+            if (x_txt_cnt == 6) begin
+                x_txt_cnt <= 0;
+                x_txt <= x_txt + 1;
+            end else
+                x_txt_cnt <= x_txt_cnt + 1;
+        end
+        if (y_pos >= 192) begin
+            y_pos <= 0;
+            chary <= 0;
+            x_txt <= 0;
+        end
+
+        crom_adr <= {txt[7:0], chary[2:0]}; //XXX the second line of the char
+
+        if (crom_q[3'd6-x_txt_cnt] == 1)
+            vram_d <= 24'hffffff;
+        else
+            vram_d <= 0;
     end
-
-    if (y_pos >= 192) begin
-        y_pos <= 0;
-        chary <= 0;
-        x_txt <= 0;
-    end
-
-    crom_adr <= {txt[7:0], chary[2:0]}; //XXX the second line of the char
-
-    if (crom_q[3'd6-x_txt_cnt] == 1)
-        vram_d <= 24'hffffff;
-    else
-        vram_d <= 0;
-end
 end
 
 endmodule

@@ -29,17 +29,17 @@ initial begin
     //$dumpoff;
     #0
     CLOCK_50 = 0;
-    KEY[0] = 0;
-    KEY[1] = 0;
-    KEY[2] = 0;
-    KEY[3] = 0;
-    #10
     KEY[0] = 1;
-    #10
+    KEY[1] = 1;
+    KEY[2] = 1;
+    KEY[3] = 1;
+    #5
     KEY[0] = 0;
+    #30
+    KEY[0] = 1;
     //#100000
     //$dumpon;
-    #5000
+    #500000
     $finish;
 end
 
