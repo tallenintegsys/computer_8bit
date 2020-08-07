@@ -31,6 +31,7 @@ wire sync;
 wire [15:0]cpu_adr;
 wire [15:0]mem_adr;
 wire [15:0]vid_adr;
+wire [7:0]vid_dbi;
 wire [7:0]ram_dbo;
 wire [7:0]rom_dbo;
 reg [22:0] count;
@@ -62,12 +63,14 @@ single_port_rom rom (
     .q (rom_dbo));
 
 
-single_port_ram ram (
-    .data (cpu_dbo),
-    .addr (mem_adr),
-    .clk (mem_phi),
-    .we (rw),
-    .q (ram_dbo));
+ram #(8,16) ram (
+    .data_a (cpu_dbo),
+    .data_b (8'd0),
+	.addr_a (cpu_adr),
+    .addr_b (vid_adr),
+	.we_a (rw), .we_b (1'd0),
+    .clk_a (cpu_phi), .clk_b (vid_phi),
+	.q_a (ram_dbo), .q_b (vid_dbi));
 
 
 vdp vdp (
@@ -82,7 +85,7 @@ vdp vdp (
     .VGA_SYNC_N (VGA_SYNC_N),    // to D2A chip, active low
     .VGA_VS     (VGA_VS),         // DB19 pin, active low
     .adr        (vid_adr),
-    .txt        (ram_dbo),
+    .txt        (vid_dbi),
     .reset      (res));
 
 
