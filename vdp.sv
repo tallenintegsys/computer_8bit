@@ -15,7 +15,6 @@ $780  07 $780-7A7  15 $7A8-7CF  23 $7D0-7F7  $7F8-7FF */
 module vdp (
     input           CLOCK_50,
     input           phi,
-    input           [7:0]txt,
     input           reset,
     output  logic   [7:0]VGA_B,
     output  logic   VGA_BLANK_N,    // to D2A chip, active low
@@ -25,6 +24,7 @@ module vdp (
     output  logic   [7:0]VGA_R,
     output  logic   VGA_SYNC_N,     // to D2A chip, active low
     output  logic   VGA_VS,         // DB19 pin, active low
+    input           [7:0]txt,
     output  logic   [15:0]adr);  // XXX for now we reach out
 
     wire    [15:0]  vram_radr;
