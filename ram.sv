@@ -11,19 +11,24 @@ module ram
 	output reg [(DATA_WIDTH-1):0] q_a, q_b
 );
 
+initial q_a = 0;
+initial q_b = 0;
+`ifdef __ICARUS__
+initial
+    for (int i = 0; i < 2**ADDR_WIDTH-1; i++)
+        ram[i] = 0;
+`endif
+
 	// Declare the RAM variable
 	reg [DATA_WIDTH-1:0] ram[2**ADDR_WIDTH-1:0];
 
 	always @ (posedge clk_a)
 	begin
 		// Port A 
-		if (!we_a) 
-		begin
+		if (!we_a) begin
 			ram[addr_a] <= data_a;
 			q_a <= data_a;
-		end
-		else 
-		begin
+		end else begin
 			q_a <= ram[addr_a];
 		end 
 	end
@@ -31,13 +36,10 @@ module ram
 	always @ (posedge clk_b)
 	begin
 		// Port B 
-		if (we_b) 
-		begin
+		if (we_b) begin
 			ram[addr_b] <= data_b;
 			q_b <= data_b;
-		end
-		else 
-		begin
+		end else begin
 			q_b <= ram[addr_b];
 		end 
 	end

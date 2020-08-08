@@ -29,7 +29,6 @@ wire [7:0]cpu_dbo;
 wire rw;
 wire sync;
 wire [15:0]cpu_adr;
-wire [15:0]mem_adr;
 wire [15:0]vid_adr;
 wire [7:0]vid_dbi;
 wire [7:0]ram_dbo;
@@ -43,25 +42,18 @@ clock_divider clock_divider (
     .mem_phi,
     .vid_phi);
 
-
 address_decode address_decode (
     .cpu_adr,
-    .mem_adr,
-    .vid_adr,
     .cpu_dbi,
     .ram_dbo,
     .rom_dbo,
-    .cpu_phi,
-    .vid_phi,
-    .mem_phi);
-
+    .phi (mem_phi));
 
 single_port_rom rom (
-    .addr (mem_adr),
+    .addr (cpu_adr),
     .clk (mem_phi),
     .ce (1'd1),
     .q (rom_dbo));
-
 
 ram #(8,16) ram (
     .data_a (cpu_dbo),
@@ -69,9 +61,8 @@ ram #(8,16) ram (
 	.addr_a (cpu_adr),
     .addr_b (vid_adr),
 	.we_a (rw), .we_b (1'd0),
-    .clk_a (cpu_phi), .clk_b (vid_phi),
+    .clk_a (mem_phi), .clk_b (vid_phi),
 	.q_a (ram_dbo), .q_b (vid_dbi));
-
 
 vdp vdp (
     .CLOCK_50   (CLOCK_50),
@@ -87,7 +78,6 @@ vdp vdp (
     .adr        (vid_adr),
     .txt        (vid_dbi),
     .reset      (res));
-
 
 chip_6502 cpu (
 	.clk    (CLOCK_50),    // FPGA clock
@@ -114,7 +104,9 @@ assign  LEDG[8] = heartbeat;
 
 // Module Item(s)
 always @ (posedge CLOCK_50) begin
-    if (res) begin
+    if (!res) begin
+        heartbeat <= 0;
+    end else begin
         so = 1;
         rdy = 1;
         nmi = 1;
@@ -123,8 +115,6 @@ always @ (posedge CLOCK_50) begin
         if (count == 0) begin
             heartbeat <= !heartbeat;
         end
-    end else begin
-        heartbeat <= 0;
     end
 end //always
 endmodule

@@ -37,8 +37,8 @@ initial begin
     KEY[0] = 0;
     #30
     KEY[0] = 1;
-    //#100000
-    //$dumpon;
+    //#500000
+    // $dumpon;
     #5000
     $finish;
 end

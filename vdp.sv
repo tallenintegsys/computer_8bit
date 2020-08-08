@@ -70,7 +70,6 @@ vga vga (
     .VGA_SYNC_N     (VGA_SYNC_N),         // to D2A chip, active low
     .VGA_VS         (VGA_VS));            // DB19 pin, active low
 
-
 always @ (posedge phi) begin
     if (!reset) begin
         x_pos <= 0;
