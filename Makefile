@@ -11,7 +11,8 @@ modules=clock_divider.sv \
 		ram.sv \
 		address_decode.sv \
 		chip_6502.v MUX.v \
-		vdp.sv vga.sv crom.sv vram.sv
+		vdp.sv vga.sv crom.sv vram.sv \
+		ps2ctrlr.sv
 VFLAGS= -Wall -g2012
 
 all: sim

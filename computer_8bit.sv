@@ -35,8 +35,8 @@ wire [7:0]ram_dbo;
 wire [7:0]rom_dbo;
 reg [22:0] count;
 logic heartbeat;
-logic [5:0]kbit;
-logic [15:0]kbdat;
+logic kbd_clr;
+logic [7:0] kbd_dbo;
 
 clock_divider clock_divider (
     .CLOCK_50,
@@ -81,6 +81,13 @@ vdp vdp (
     .txt        (vid_dbi),
     .reset      (res));
 
+ps2ctrlr kbdctrlr (
+    .CLOCK_50,
+    .q (kbd_dbo),
+    .clr (kbd_clr),
+    .PS2_DAT,
+    .PS2_CLK);
+
 chip_6502 cpu (
 	.clk    (CLOCK_50),    // FPGA clock
 	.phi    (cpu_phi),    // 6502 clock
@@ -99,11 +106,11 @@ chip_6502 cpu (
 // net expression.  That is, it must be a net or a concatentation of
 // nets, and any index expressions must be constant.
 
-//assign	LEDR[15:0] = cpu_adr;
-assign	LEDR[15:0] = kbdat;
+assign	LEDR[15:0] = cpu_adr;
 assign	res = KEY[0]; //normaly high
+assign  kbd_clr = !KEY[1]; //normally high
+assign 	LEDG[7:0] = kbd_dbo[7:0];
 //assign 	LEDG[7:0] = cpu_dbo[7:0];
-assign 	LEDG[7:0] = kbit;
 assign  LEDG[8] = heartbeat;
 
 // Module Item(s)
@@ -120,16 +127,6 @@ always @ (posedge CLOCK_50) begin
             heartbeat <= !heartbeat;
         end
     end
-end //always
-
-always @ (posedge PS2_CLK, negedge KEY[1]) begin
-    if (KEY[1] == 0) begin
-		kbit <= 0;
-        kbdat = 0;
-    end else begin
-        kbit <= kbit + 1;
-        kbdat[kbit] = PS2_DAT;
-	end //if else
 end //always
 
 endmodule
