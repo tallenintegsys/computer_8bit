@@ -3,7 +3,7 @@
 // Single Port ROM
 
 module xlat
-#(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=11)
+#(parameter DATA_WIDTH=11, parameter ADDR_WIDTH=11)
 (
     input [(ADDR_WIDTH-1):0] adr,
     input clk,
@@ -23,7 +23,7 @@ module xlat
 
     initial
     begin
-        $readmemh("xlat.txt", rom, 0, 2047);
+        $readmemh("xlat.txt", rom, 0, 1023);
     end
 
     always @ (posedge clk)

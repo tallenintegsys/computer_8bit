@@ -4,6 +4,8 @@ module computer_8bit_tb;
     // Input Ports
     reg     CLOCK_50;
     reg     [3:0]KEY;
+    reg     PS2_CLK;
+    reg     PS2_DAT;
 
     // Output Ports
     wire    [17:0]LEDR;
@@ -50,6 +52,8 @@ end
 
 computer_8bit uut (
     .CLOCK_50,
+    .PS2_CLK,
+    .PS2_DAT,
     .KEY,
     .LEDR,
     .LEDG,
