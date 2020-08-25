@@ -45,6 +45,8 @@ clock_divider clock_divider (
     .vid_phi);
 
 address_decode address_decode (
+    .kbd_dbo,
+    .kbd_clr,
     .cpu_adr,
     .cpu_dbi,
     .ram_dbo,
@@ -108,7 +110,7 @@ chip_6502 cpu (
 
 assign	LEDR[15:0] = cpu_adr;
 assign	res = KEY[0]; //normaly high
-assign  kbd_clr = !KEY[1]; //normally high
+//assign  kbd_clr = !KEY[1]; //normally high
 assign 	LEDG[7:0] = kbd_dbo[7:0];
 //assign 	LEDG[7:0] = cpu_dbo[7:0];
 assign  LEDG[8] = heartbeat;
