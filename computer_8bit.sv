@@ -70,7 +70,7 @@ ram #(8,16) ram (
 
 vdp vdp (
     .CLOCK_50   (CLOCK_50),
-    .phi        (vid_phi),
+    .clk        (vid_phi),
     .VGA_B      (VGA_B),
     .VGA_BLANK_N (VGA_BLANK_N),    // to D2A chip, active low
     .VGA_CLK    (VGA_CLK),        // latch the RGBs and put 'em on the DACs
@@ -79,9 +79,9 @@ vdp vdp (
     .VGA_R      (VGA_R),
     .VGA_SYNC_N (VGA_SYNC_N),    // to D2A chip, active low
     .VGA_VS     (VGA_VS),         // DB19 pin, active low
-    .adr        (vid_adr),
-    .txt        (vid_dbi),
-    .reset      (res));
+    .txt_adr    (vid_adr),
+    .txt_q      (vid_dbi),
+    .res        (res));
 
 ps2ctrlr kbdctrlr (
     .CLOCK_50,
