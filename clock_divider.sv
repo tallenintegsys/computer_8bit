@@ -22,28 +22,28 @@ always@(posedge CLOCK_50) begin
 `ifdef __ICARUS__
 	if (counter == 2) begin
 `else
-	if (counter == 100) begin
+	if (counter == 10) begin
 `endif
 		mem_phi = ~mem_phi;
 	end
 `ifdef __ICARUS__
 	if (counter == 4) begin
 `else
-	if (counter == 200) begin
+	if (counter == 20) begin
 `endif
 		mem_phi = ~mem_phi;
 	end
 `ifdef __ICARUS__
 	if (counter == 6) begin
 `else
-	if (counter == 300) begin
+	if (counter == 30) begin
 `endif
 		mem_phi = ~mem_phi;
 	end
 `ifdef __ICARUS__
 	if (counter == 8) begin
 `else
-	if (counter == 400) begin
+	if (counter == 40) begin
 `endif
 		counter = 0;
 		cpu_phi = ~cpu_phi;
