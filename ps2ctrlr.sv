@@ -77,7 +77,7 @@ always @ (negedge ps2_clk , posedge clr) begin
                         8'h16 : q = 8'ha1; // "!"
                         8'h1e : q = 8'hc0; // "@"
                         8'h26 : q = 8'ha3; // "#"
-                        8'h24 : q = 8'ha4; // "$"
+                        8'h25 : q = 8'ha4; // "$"
                         8'h2e : q = 8'ha5; // "%"
                         8'h36 : q = 8'hde; // "^"
                         8'h3d : q = 8'ha6; // "&"
