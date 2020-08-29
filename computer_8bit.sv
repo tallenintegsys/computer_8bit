@@ -53,7 +53,7 @@ address_decode address_decode (
     .rom_dbo,
     .phi (mem_phi));
 
-single_port_rom rom (
+mainrom rom (
     .addr (cpu_adr),
     .clk (mem_phi),
     .ce (1'd1),

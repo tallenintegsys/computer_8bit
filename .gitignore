@@ -6,7 +6,6 @@ output_files/
 simulation/
 db/
 *.vcd
-rom.*
-rom_bin.v
 computer_8bit.qws
 xlat
+AppleII*

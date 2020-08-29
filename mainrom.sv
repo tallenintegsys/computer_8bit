@@ -2,7 +2,7 @@
 // Quartus Prime Verilog Template
 // Single Port ROM
 
-module single_port_rom
+module mainrom
 #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=16)
 (
 	input [(ADDR_WIDTH-1):0] addr,
@@ -24,7 +24,9 @@ module single_port_rom
 
 	initial
 	begin
-		$readmemh("rom.txt", rom, 16'hffff - 20479, 16'hffff);
+		//$readmemh("AppleII.txt", rom, 16'hffff - 20479, 16'hffff);
+		$readmemh("AppleIIe.txt", rom, 16'hffff - 32767, 16'hffff);
+		//$readmemh("AppleIIeEnh.txt", rom, 16'hffff - 12287, 16'hffff);
 	end
 
 	always @ (posedge clk) begin

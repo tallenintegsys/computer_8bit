@@ -23,7 +23,7 @@ module crom
 
     initial
     begin
-        $readmemh("crom.txt", rom, 0, 2047);
+        $readmemh("AppleII_crom.txt", rom, 0, 2047);
     end
 
     always @ (posedge clk)

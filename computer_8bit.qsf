@@ -1114,6 +1114,7 @@ set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 
+set_global_assignment -name SYSTEMVERILOG_FILE mainrom.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ps2ctrlr.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ram.sv
 set_global_assignment -name SYSTEMVERILOG_FILE vram.sv
@@ -1121,7 +1122,6 @@ set_global_assignment -name SYSTEMVERILOG_FILE vga.sv
 set_global_assignment -name SYSTEMVERILOG_FILE vdp.sv
 set_global_assignment -name SYSTEMVERILOG_FILE crom.sv
 set_global_assignment -name SYSTEMVERILOG_FILE clock_divider.sv
-set_global_assignment -name SYSTEMVERILOG_FILE single_port_rom.sv
 set_global_assignment -name VERILOG_FILE MUX.v
 set_global_assignment -name SYSTEMVERILOG_FILE computer_8bit.sv
 set_global_assignment -name VERILOG_FILE chip_6502_tb.v

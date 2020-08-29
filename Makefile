@@ -7,7 +7,7 @@ STA=$(INTEL)quartus_sta
 EDA=$(INTEL)quartus_eda
 PGM=$(ALTERA)quartus_pgm
 modules=clock_divider.sv \
-		single_port_rom.sv \
+		mainrom.sv \
 		ram.sv \
 		address_decode.sv \
 		chip_6502.v MUX.v \
@@ -16,8 +16,6 @@ modules=clock_divider.sv \
 VFLAGS= -Wall -g2012
 
 all: sim
-
-xlat:
 
 .PHONY: syn sim pgm clean distclean run
 syn:
