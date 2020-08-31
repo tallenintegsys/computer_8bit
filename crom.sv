@@ -23,6 +23,7 @@ module crom
 
     initial
     begin
+        //$readmemh("AppleIIe_crom.txt", rom, 0, 8191);
         $readmemh("AppleII_crom.txt", rom, 0, 2047);
     end
 
