@@ -25,6 +25,7 @@ always@(posedge CLOCK_50) begin
 	if (counter == 10) begin
 `endif
 		mem_phi = ~mem_phi;
+        vid_phi = ~vid_phi;
 	end
 `ifdef __ICARUS__
 	if (counter == 4) begin
@@ -32,6 +33,7 @@ always@(posedge CLOCK_50) begin
 	if (counter == 20) begin
 `endif
 		mem_phi = ~mem_phi;
+        vid_phi = ~vid_phi;
 	end
 `ifdef __ICARUS__
 	if (counter == 6) begin
@@ -39,6 +41,7 @@ always@(posedge CLOCK_50) begin
 	if (counter == 30) begin
 `endif
 		mem_phi = ~mem_phi;
+        vid_phi = ~vid_phi;
 	end
 `ifdef __ICARUS__
 	if (counter == 8) begin
@@ -47,8 +50,8 @@ always@(posedge CLOCK_50) begin
 `endif
 		counter = 0;
 		cpu_phi = ~cpu_phi;
-		vid_phi = ~vid_phi;
 		mem_phi = ~mem_phi;
+        vid_phi = ~vid_phi;
 	end
 end
 endmodule
