@@ -1,6 +1,10 @@
 # computer_8bit
 Implementation of a popular 8-bit computer on a Cyclone IV based DE2-115
 ![Dev Setup](/doc/boots_FB_in_progress.png) 
+
+The monitor on the left is my Linux workstation, it's the one on the right thats more interesting  
+This is an early implementation of my video subsystem, I cheated and used duel ported BRAM, the real deal kicked the CPU off the bus; thus, the 6502 was in a kind of wait state except during blanking. Yep that's VGA! (I don't have any composite monitors anymore) VGA was hard enough but I so wanna sort out HDMI  
+
 Text mode works
 ![FB text mode works](doc/txt_mode_works.png) 
 
