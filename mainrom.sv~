@@ -31,9 +31,9 @@ module mainrom
 
 	always @ (posedge clk) begin
 		if (!ce) begin
-			q = 8'hz;
+			q <= 8'hz;
 		end else begin
-			q = rom[addr];
+			q <= rom[addr];
 		end
 	end
 endmodule

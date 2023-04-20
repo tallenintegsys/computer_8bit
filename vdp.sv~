@@ -108,7 +108,7 @@ always @ (posedge clk, negedge res) begin
                 16'h6f8 : txt_adr = 16'h6d0;
                 16'h778 : txt_adr = 16'h750;
                 16'h7f8 : txt_adr = 16'h7d0;
-                default: ; //no nothing
+                default: ;
             endcase
             end
         end
@@ -140,7 +140,6 @@ always @ (posedge clk, negedge res) begin
                 16'h6f8 : txt_adr = 16'h750;
                 16'h778 : txt_adr = 16'h7d0;
                 16'h7f8 : txt_adr = 16'h400;
-                default: ; //no nothing
             endcase
         end
         if (y24 == 5'd24) begin

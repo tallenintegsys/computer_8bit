@@ -70,7 +70,6 @@ always @ (negedge ps2_clk , posedge clr) begin
                     case (kb_dat)
                         8'h12: shift = 0; // Shift (Left)
                         8'h59: shift = 0; // Shift (Right)
-                        default: ; //no nothing
                     endcase
                 end else if (shift) begin // shiftted
                     case (kb_dat)

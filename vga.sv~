@@ -38,8 +38,8 @@ always @ (posedge VGA_CLK) begin
 if (reset == 0) begin //active low reset
     h_counter <= 0;
     v_counter <= 0;
-    VGA_HS <= 1'd1;
-    VGA_VS <= 1'd1;
+    VGA_HS = 1'd1;
+    VGA_VS = 1'd1;
     VGA_SYNC_N <= 0; //no sync on green
     h_blank <= 0;
     v_blank <= 0;

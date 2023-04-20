@@ -1,12 +1,12 @@
 `timescale 10ns/10ps
 module computer_8bit ( 
-        input   CLOCK_50,
-        input   [3:0]KEY,
-        output  logic [17:0]LEDR,
-        output  logic [8:0]LEDG,
-        input   PS2_DAT,
-        input   PS2_CLK,
-        output  logic [7:0]VGA_B,
+        input   CLOCK_50, 
+        input   [3:0]KEY, 
+        output  logic [17:0]LEDR, 
+        output  logic [8:0]LEDG, 
+        input   PS2_DAT, 
+        input   PS2_CLK, 
+        output  logic [7:0]VGA_B, 
         output  logic VGA_BLANK_N,    // to D2A chip, active low
         output  logic VGA_CLK,        // latch the RGBs and put 'em on the DACs
         output  logic [7:0]VGA_G,
