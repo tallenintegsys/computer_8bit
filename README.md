@@ -25,3 +25,6 @@ The CROM (character ROM) begins with 00 1c 22 2a 2e 2c 20 1e... Look for a file 
 </pre>
 
 For the main ROM `APPLE2_.ROM` from `https://ftp.apple.asimov.net/emulators/rom_images/` might be a good choice. 
+
+# To Do
+VGA -> HDMI (my last VGA monitor is looking tired)
