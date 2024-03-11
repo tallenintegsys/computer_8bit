@@ -1,11 +1,12 @@
 ALTERA=$(HOME)/altera/13.1/quartus/bin/
-INTEL=$(HOME)/intelFPGA_lite/20.1/quartus/bin/
+#INTEL=$(HOME)/intelFPGA_lite/20.1/quartus/bin/
+INTEL=$(HOME)/intelFPGA_lite/23.1std/quartus/bin/
 MAP=$(INTEL)quartus_map
 FIT=$(INTEL)quartus_fit
 ASM=$(INTEL)quartus_asm
 STA=$(INTEL)quartus_sta
 EDA=$(INTEL)quartus_eda
-PGM=$(ALTERA)quartus_pgm
+PGM=$(INTEL)quartus_pgm
 modules=clock_divider.sv \
 		mainrom.sv \
 		ram.sv \
