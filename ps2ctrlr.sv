@@ -47,7 +47,7 @@ always @ (negedge ps2_clk , posedge clr) begin
     if (clr) begin
         q[7] = 0;
     end else begin
-        kb_count = kb_count + 1;
+        kb_count = kb_count + 4'd1;
         case (kb_count)
             0: ; // start
             1: kb_dat[0] = ps2_dat;

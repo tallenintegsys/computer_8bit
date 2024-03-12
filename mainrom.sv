@@ -24,7 +24,8 @@ module mainrom
 
 	initial
 	begin
-		$readmemh("AppleII.txt", rom, 16'hffff - 20479, 16'hffff);
+		//$readmemh("AppleII.txt", rom, 16'hffff - 20479, 16'hffff);
+		$readmemh("AppleII.txt", rom, 16'hd000, 16'hffff);
 		//$readmemh("AppleIIe.txt", rom, 16'hffff - 32767, 16'hffff);
 		//$readmemh("AppleIIeEnh.txt", rom, 16'hffff - 12287, 16'hffff);
 	end
