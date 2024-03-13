@@ -34,8 +34,9 @@ wire  [7:0]ram_dbo;
 wire  [7:0]rom_dbo;
 reg   [22:0] count;
 logic heartbeat;
-logic kbd_clr;
-logic [7:0] kbd_dbo;
+logic [7:0] kbd_KBD;
+logic [7:0] kbd_STRB;
+logic kbd_CLR;
 
 clock_divider clock_divider (
         .CLOCK_50,
@@ -44,8 +45,9 @@ clock_divider clock_divider (
         .vid_phi);
 
 address_decode address_decode (
-        .kbd_dbo,
-        .kbd_clr,
+        .KBD (kbd_KBD),
+        .KBDSTRB (kbd_STRB),
+        .KBDCLR (kbd_CLR),
         .cpu_adr,
         .cpu_dbi,
         .ram_dbo,
@@ -84,8 +86,9 @@ vdp vdp (
 
 ps2ctrlr kbdctrlr (
         .CLOCK_50,
-        .q (kbd_dbo),
-        .clr (kbd_clr),
+        .KBD (kbd_KBD),
+        .KBDSTRB (kbd_STRB),
+        .CLR (kbd_CLR),
         .PS2_DAT,
         .PS2_CLK);
 
@@ -107,12 +110,10 @@ chip_6502 cpu (
 // net expression.  That is, it must be a net or a concatentation of
 // nets, and any index expressions must be constant.
 
-assign	  LEDR[15:0] = cpu_adr;
-assign	  res = KEY[0]; //normaly high
-//assign  kbd_clr = !KEY[1]; //normally high
-assign 	  LEDG[7:0] = kbd_dbo[7:0];
-//assign  LEDG[7:0] = cpu_dbo[7:0];
-assign    LEDG[8] = heartbeat;
+assign LEDR[15:0] = cpu_adr;
+assign res = KEY[0]; //normaly high
+assign LEDG[7:0] = kbd_KBD[7:0];
+assign LEDG[8] = heartbeat;
 
 // Module Item(s)
 always @ (posedge CLOCK_50) begin
