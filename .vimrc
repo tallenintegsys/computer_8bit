@@ -11,9 +11,9 @@ set showmatch " show matching brackets
 set matchtime=5 " how many tenths of a second to blink matching brackets for
 set hlsearch
 set expandtab " no real tabs please!
-set softtabstop=2 " unify
-set tabstop=2 " real tabs should be 4, but they will show with set list on
-set backup " make backup file
+set softtabstop=4 " unify
+set tabstop=4 " real tabs should be 4, but they will show with set list on
+"set backup " make backup file
 set backupdir=. " where to put backup file
 set ruler " Always show current positions along the bottom
 set makeef=error.err " When using make, where should it dump the file
