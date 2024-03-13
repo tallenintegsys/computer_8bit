@@ -37,7 +37,7 @@ run: syn pgm
 
 
 clean:
-	rm *.vcd a.out
+	rm -f *.vcd a.out
 
 distclean:
 	rm -rf *.vcd a.out db incremental_db output_files simulation
