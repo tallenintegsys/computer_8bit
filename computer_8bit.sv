@@ -115,7 +115,7 @@ chip_6502 cpu (
 
 assign ledr[15:0]   = cpu_adr;
 assign res          = key[0]; //normaly high
-assign ledg[7:0]    = kbd[7:0];
+assign ledg[7:0]    = cpu_dbo;
 assign ledg[8]      = heartbeat;
 
 // Module Item(s)
