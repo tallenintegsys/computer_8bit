@@ -1,6 +1,6 @@
 `timescale 10ns/10ps
 module clock_divider (
-        input CLOCK_50,
+        input clock_50,
         output reg cpu_phi,
         output reg mem_phi,
         output reg vid_phi);
@@ -14,7 +14,7 @@ module clock_divider (
         counter = 0;
     end
 
-    always@(posedge CLOCK_50) begin
+    always@(posedge clock_50) begin
     counter++;
 `ifdef __ICARUS__
     if (counter == 2) begin

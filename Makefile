@@ -11,7 +11,7 @@ modules=clock_divider.sv \
 		mainrom.sv \
 		ram.sv \
 		address_decode.sv \
-		chip_6502.v MUX.v \
+		chip_6502.v \
 		vdp.sv vga.sv crom.sv vram.sv \
 		ps2ctrlr.sv
 VFLAGS= -Wall -g2012

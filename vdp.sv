@@ -13,17 +13,17 @@ $700  06 $700-727  14 $728-74F  22 $750-777  $778-77F
 $780  07 $780-7A7  15 $7A8-7CF  23 $7D0-7F7  $7F8-7FF */
 
 module vdp (
-    input           CLOCK_50,
+    input           clock_50,
     input           clk,
     input           res,
-    output  logic   [7:0]VGA_B,
-    output  logic   VGA_BLANK_N,    // to D2A chip, active low
-    output  logic   VGA_CLK,        // latch the RGBs and put 'em on the DACs
-    output  logic   [7:0]VGA_G,
-    output  logic   VGA_HS,         // DB19 pin, active low
-    output  logic   [7:0]VGA_R,
-    output  logic   VGA_SYNC_N,     // to D2A chip, active low
-    output  logic   VGA_VS,         // DB19 pin, active low
+    output  logic   [7:0]vga_b,
+    output  logic   vga_blank_n,    // to D2A chip, active low
+    output  logic   vga_clk,        // latch the RGBs and put 'em on the DACs
+    output  logic   [7:0]vga_g,
+    output  logic   vga_hs,         // DB19 pin, active low
+    output  logic   [7:0]vga_r,
+    output  logic   vga_sync_n,     // to D2A chip, active low
+    output  logic   vga_vs,         // DB19 pin, active low
     output  logic   [15:0]txt_adr,      // XXX for now we reach out
     input           [7:0]txt_q);
 
@@ -41,28 +41,28 @@ vram #(24,16) vram (
     .d              (vram_d),
     .w_adr          (vram_wadr),
     .we             (1'd1),
-    .r_clk          (CLOCK_50),
-    .w_clk          (CLOCK_50),
+    .r_clk          (clock_50),
+    .w_clk          (clock_50),
     .q              (vram_q),
     .r_adr          (vram_radr));
 
 crom #(8,11) crom (
     .adr            ({txt_q[7:0], y8[2:0]}),
-    .clk            (CLOCK_50),
+    .clk            (clock_50),
     .q              (crom_q));
 
 vga vga (
-    .CLOCK_50,
+    .clock_50,
     .d              (vram_q),
     .adr            (vram_radr),
-    .VGA_B          (VGA_B),
-    .VGA_BLANK_N    (VGA_BLANK_N),        // to D2A chip, active low
-    .VGA_CLK        (VGA_CLK),            // latch the RGBs and put 'em on the DACs
-    .VGA_G          (VGA_G),
-    .VGA_HS         (VGA_HS),             // DB19 pin, active low
-    .VGA_R          (VGA_R),
-    .VGA_SYNC_N     (VGA_SYNC_N),         // to D2A chip, active low
-    .VGA_VS         (VGA_VS));            // DB19 pin, active low
+    .vga_b          (vga_b),
+    .vga_blank_n    (vga_blank_n),        // to D2A chip, active low
+    .vga_clk        (vga_clk),            // latch the RGBs and put 'em on the DACs
+    .vga_g          (vga_g),
+    .vga_hs         (vga_hs),             // DB19 pin, active low
+    .vga_r          (vga_r),
+    .vga_sync_n     (vga_sync_n),         // to D2A chip, active low
+    .vga_vs         (vga_vs));            // DB19 pin, active low
 
 always @ (posedge clk, negedge res) begin
     if (!res) begin
