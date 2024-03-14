@@ -57,7 +57,7 @@ set noautoindent
 set nosmartindent " smartindent (filetype indenting instead)
 "set autoindent " autoindent (should be overwrote by cindent or filetype indent)
 "set cindent " do c-style indenting
-"set shiftwidth=2 " unify
+set shiftwidth=4 " unify
 set nocopyindent
 "set copyindent " but above all -- follow the conventions laid before us
 "filetype plugin indent on " load filetype plugins and indent settings

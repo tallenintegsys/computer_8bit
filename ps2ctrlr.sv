@@ -3,7 +3,7 @@ module ps2ctrlr (
     input                   clock,
     output  logic [7:0]     kbd,
     output  logic [7:0]     kbd_strb,
-    input                   clr,
+    input                   kbd_clr,
     input                   ps2_dat_in,
     input                   ps2_clk_in);
 
@@ -29,23 +29,28 @@ initial begin
     kbd             = 0;
 end
 
-// Module Item(s)
+// DSP denoisify the PS2 clk and dat lines
 always @ (posedge clock) begin
     buffer_count++;
     clk_buffer[buffer_count] = ps2_clk_in;
     dat_buffer[buffer_count] = ps2_dat_in;
     if (clk_buffer == 16'hffff)
         ps2_clk = 1;
-    if (clk_buffer == 16'h0000)
+    else if (clk_buffer == 16'h0000)
         ps2_clk = 0;
+    else
+        ; // do nothing (ignore noise)
     if (dat_buffer == 16'hffff)
         ps2_dat = 1;
-    if (dat_buffer == 16'h0000)
+    else if (dat_buffer == 16'h0000)
         ps2_dat = 0;
+    else
+        ; // do nothing (ignore noise)
 end //always
 
-always @ (negedge ps2_clk , posedge clr) begin
-    if (clr) begin
+// use the denoisified clk
+always @ (negedge ps2_clk, posedge kbd_clr) begin
+    if (kbd_clr) begin
         kbd[7] = 0; //the MSB is the strobe so clear it
     end else begin
         kb_count = kb_count + 4'd1;
