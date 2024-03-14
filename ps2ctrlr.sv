@@ -17,16 +17,16 @@ logic               lift, shift;
 logic               kbs;
 
 initial begin
-    dat_buffer = 16'd0;
-    clk_buffer = 16'd0;
-    buffer_count = 4'd0;
-    ps2_clk = 0;
-    ps2_dat = 0;
-    kb_count = 4'hf;
-    kb_dat = 8'd0;
-    lift = 0;
-    shift = 0;
-    kbd = 0;
+    dat_buffer      = 16'd0;
+    clk_buffer      = 16'd0;
+    buffer_count    = 4'd0;
+    ps2_clk         = 0;
+    ps2_dat         = 0;
+    kb_count        = 4'hf;
+    kb_dat          = 8'd0;
+    lift            = 0;
+    shift           = 0;
+    kbd             = 0;
 end
 
 // Module Item(s)
