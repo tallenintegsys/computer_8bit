@@ -1,4 +1,8 @@
 `timescale 10ns/10ps
+/**************************************
+*       Video Display Processor       *
+* Light on the actual processing      *
+**************************************/
 
 /*TOP/         MIDDLE/      BOTTOM/      (SCREEN HOLES)
 BASE  FIRST 40     SECOND 40    THIRD 40     UNUSED 8
@@ -24,7 +28,7 @@ module vdp (
     output logic [7:0]  vga_r,          // to D2A chip
     output logic        vga_sync_n,     // to D2A chip, active low
     output logic        vga_vs,         // DB19 pin, active low
-    output logic [15:0] txt_adr,        // XXX for now we reach out
+    output logic [15:0] txt_adr,        // the text buffer is in main RAM
     input [7:0]         txt_q);
 
 logic [23:0]    vram_d;
@@ -53,8 +57,8 @@ crom #(8,11) crom (
 
 vga vga (
     .clock_50,
-    .d              (vram_q),
-    .adr            (vram_radr),
+    .d              (vram_q),       // framebuffer data
+    .adr            (vram_radr),    // framebuffer addr
     .vga_b          (vga_b),        // to D2A chip
     .vga_blank_n    (vga_blank_n),  // to D2A chip, active low
     .vga_clk        (vga_clk),      // latch the RGBs and put 'em on the DACs
@@ -66,12 +70,12 @@ vga vga (
 
 always @ (posedge clk, negedge res) begin
     if (!res) begin
-        vram_wadr = 0; //last pixel
-        txt_adr = 16'h400;
-        x7  = 0;
-        x40 = 0;
-        y8  = 0;
-        y24 = 0;
+        vram_wadr   = 0;            // last pixel
+        txt_adr     = 16'h400;      // text buffer starts at $400
+        x7          = 0;
+        x40         = 0;
+        y8          = 0;
+        y24         = 0;
     end else begin
         x7++;
         if (x7 == 3'd7) begin
@@ -110,8 +114,8 @@ always @ (posedge clk, negedge res) begin
                     16'h7f8 : txt_adr = 16'h7d0;
                     default: ; //no nothing
                 endcase
-            end
-        end
+            end // if (y8 != 4'd8)
+        end // if (x40 == 6'd40)
         if (y8 == 4'd8) begin
             y8 = 0;
             y24++;
@@ -142,21 +146,16 @@ always @ (posedge clk, negedge res) begin
                 16'h7f8 : txt_adr = 16'h400;
                 default: ; //no nothing
             endcase
-        end
-        if (y24 == 5'd24) begin
-            y24 = 0;
-        end
+        end // if (y8 == 4'd8)
+        if (y24 == 5'd24) y24 = 0;
         vram_wadr++;
-        if (vram_wadr == 280 * 192)
-            vram_wadr = 0;
-    end
-end //always
+        if (vram_wadr == 280 * 192) vram_wadr = 0;
+    end // if (!res) begin
+end // always
 
 always @ (negedge clk) begin
-    if (crom_q[3'd6-x7] == 1)
-        vram_d = 24'hffffff;
-    else
-        vram_d = 24'h000000;
-end //case
+    if (crom_q[3'd6-x7] == 1) vram_d = 24'hffffff;
+    else vram_d = 24'h000000;
+end // case
 
 endmodule

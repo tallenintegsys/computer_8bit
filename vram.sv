@@ -1,7 +1,8 @@
 `timescale 10ns/10ps
-// Quartus Prime Verilog Template
-// Simple Dual Port RAM with separate read/write addresses and
-// separate read/write clocks
+/**************************************
+* The actual framebuffer is actually  *
+* just duel ported RAM               *
+**************************************/
 
 module vram
 #(parameter DATA_WIDTH=8, parameter ADDR_WIDTH=6)
