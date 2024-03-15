@@ -95,10 +95,20 @@ always @ (posedge ps2_clk, posedge kbd_clr) begin
                         KEYING:   begin
                             kbd_strb <= 8'h80; // report key down
                 			case (kb_dat)
-                                8'he0 : ; // extended key, following byte tells which
-                                8'h12 : shift <= 1; // Shift (Left)
-                                8'h59 : shift <= 1; // Shift (Right)
-                                8'h14 : cntrl <= 1; // control
+                                8'he0: ; // extended key, following byte tells which
+                                8'h12: shift <= 1; // Shift (Left)
+                                8'h59: shift <= 1; // Shift (Right)
+                                8'h14: cntrl <= 1; // control
+                                8'h66: kbd <= 8'hff; // del
+                                8'h6b: kbd <= 8'h88; // <- 
+                                8'h0d: kbd <= 8'h89; // tab
+                                8'h72: kbd <= 8'h8a; // Down Arrow
+                                8'h75: kbd <= 8'h8b; // Up Arrow
+                                8'h5a: kbd <= 8'h8d; // Enter
+                                8'h74: kbd <= 8'h95; // ->
+                                8'h76: kbd <= 8'h9b; // ESC
+                                8'h29: kbd <= 8'ha0; // Spacebar
+                                //
                                 default: begin
                                     if (cntrl) begin // control
                                         case (kb_dat)
@@ -236,16 +246,6 @@ always @ (posedge ps2_clk, posedge kbd_clr) begin
                                             8'h22: kbd <= 8'hd8; // "X"
                                             8'h35: kbd <= 8'hd9; // "Y"
                                             8'h1a: kbd <= 8'hda; // "Z"
-                                            8'h29: kbd <= 8'ha0; // Spacebar
-                                            //E06B: kbd <= 8'h95; // Left Arrow
-                                            //E074: kbd <= 8'h88; // Right Arrow
-                                            //8'h58: kbd <= 8'h; // Caps Lock
-                                            //8'h14: kbd <= 8'h; // Ctrl (left)
-                                            8'h5a: kbd <= 8'h8d; // Enter
-                                            8'h76: kbd <= 8'h9b; // ESC
-                                            //E014: kbd <= 8'h; // Ctrl (right)
-                                            //E075: kbd <= 8'h; // Up Arrow
-                                            //E072: kbd <= 8'h; // Down Arrow
                                             default: ; //no nothing
                                         endcase
                                     end // else unshifted
