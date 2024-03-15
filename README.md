@@ -10,7 +10,8 @@ Text mode works
 
 
 The ROMs are "programmed" during synthesis (I'm not using external flash etc.). I used xxd to format the file:
-`xxd -ps -c1 3410036.bin > AppleII_crom.txt` The roms can be dumped from your Apple II or downloaded from http://ftp.apple.asimov.net/emulators/rom_images/ 
+~~`xxd -ps -c1 3410036.bin > AppleII_crom.txt` The roms can be dumped from your Apple II or downloaded 
+from http://ftp.apple.asimov.net/emulators/rom_images/ 
 
 The CROM (character ROM) begins with 00 1c 22 2a 2e 2c 20 1e... Look for a file named `3410036.bin` The file contains bitmaps of the character set.
 <pre>
@@ -25,7 +26,16 @@ The CROM (character ROM) begins with 00 1c 22 2a 2e 2c 20 1e... Look for a file 
 </pre>
 
 For the main ROM `APPLE2_.ROM` from `https://ftp.apple.asimov.net/emulators/rom_images/` might be a good choice. 
-`xxd -ps -c1 AppleII/APPLE2_.ROM > AppleII.txt`
+`xxd -ps -c1 AppleII/APPLE2_.ROM > AppleII.txt`~~
+
+note: The ROMs are checked in now.
+
+My DE2-115 has an old fashion PS/2 connector and I have a model M keyboard as shown in the pictures. AFAIK all
+keys are working including esc, tab, arrows, ctrl, del, etc. I have rigged the break/pause key as a reset. 
 
 # To Do
 VGA -> HDMI (my last VGA monitor is looking tired)
+
+I have not implemented the graphics modes yet, so text only.
+
+![debuggering the keyboard](doc/livingroomApple.jpg) 
