@@ -1,7 +1,7 @@
 `timescale 10ns/10ps
 module computer_8bit ( 
     input           clock_50,
-    input           [3:0]key,
+    //input           [3:0]key,
     output logic    [17:0]ledr,
     output logic    [8:0]ledg,
     input           ps2_dat,
@@ -92,6 +92,7 @@ ps2ctrlr ps2ctrlr (
     .ps2_dat_in (ps2_dat),
     .ps2_clk_in (ps2_clk),
     .kbd_clr    (kbd_clr),
+    .res        (res),
     .kbd        (kbd),
     .kbd_strb   (kbd_strb));
 
@@ -114,7 +115,7 @@ chip_6502 cpu (
 // nets, and any index expressions must be constant.
 
 assign ledr[15:0]   = cpu_adr;
-assign res          = key[0]; //normaly high
+//assign res          = key[0]; //normaly high
 assign ledg[7:0]    = cpu_dbo;
 assign ledg[8]      = heartbeat;
 

@@ -10,6 +10,7 @@ module ps2ctrlr (
     input                   clock,
     output  logic [7:0]     kbd,
     output  logic [7:0]     kbd_strb,
+    output  logic           res,
     input                   kbd_clr,
     input                   ps2_dat_in,
     input                   ps2_clk_in);
@@ -39,6 +40,7 @@ initial begin
     cntrl           = 0;
     kbd             = 0;
     state           = KEYING;
+    res             = 1;
 end
 
 // DSP denoisify the PS2 clk and dat lines
@@ -79,6 +81,8 @@ always @ (posedge ps2_clk, posedge kbd_clr) begin
             9: ; // XXX maybe actually check the parity
             default: begin //stop
     			kb_count <= 4'h0; //get ready for next key
+    			if (kb_dat == 8'he1) res <= 0;
+                else if (!res) res <= 1;
     			if (kb_dat == 8'hf0) state <= UNKEYING;
                 else begin
         			case (state)
